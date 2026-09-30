@@ -65,7 +65,7 @@
     /* The module is square and sizes itself to its iframe, so the iframe needs
        a definite height here — a flex row was giving it one before. Capped so
        it cannot eat a tall phone's whole screen. */
-    #stage { min-height: 0; height: min(78vw, 360px); }
+    #stage { min-height: 0; height: min(88vw, 400px); }
     #stage iframe { width: 100%; height: 100%; }
 
     #side { border-left: 0; border-top: 1px solid #2a2a32; min-height: 0; }
@@ -207,6 +207,16 @@ window.addEventListener('message', (e) => {
   if (!d || typeof d.type !== 'string') return;
   if (d.type === 'BD_READY') {
     ready = true;
+    // This host draws NOTHING around the module — no arrows, no strip beside
+    // the canvas. BD does, so the module reserves 88px to its left and 52px
+    // below for them; here that reserve is simply lost picture. On a phone the
+    // bottom one binds: at a 430x335 wrapper it took the square from 335 to
+    // 283, and the left one pushed what was left off-centre.
+    //
+    // hideControls stays FALSE: the steppers are wanted here. That is the whole
+    // reason these are two settings and not one.
+    try { frame.contentWindow.postMessage(
+      { type: 'bd_ui_config', hideControls: false, hostChrome: false }, '*'); } catch (_) {}
     push(pending != null ? pending : script.value);
     pending = null;
     return;

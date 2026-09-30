@@ -2,6 +2,6 @@ visual_module.html was copied from ButterflyDreaming:
   source : V_Kolam3D/visual_module.html
   commit : f4593b8
   dated  : 2026-09-30
-  taken  : 2026-09-30T10:44Z
+  taken  : 2026-09-30T11:20Z
 
 Refresh with ./sync_from_bd.sh — a copy-down, not a merge.
