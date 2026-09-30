@@ -116,6 +116,14 @@ That is the entire contract.
 | module → host | `bd_av_state` `{ text, fromDrift }` | its live script, on **every** render |
 | module → host | `bd_module_log` `{ level, line }` | its console, so a host can see inside the iframe |
 
+There is a fifth, optional in both directions: `bd_ui_config`
+`{ hideControls, hostChrome }`, which lets a host say *I supply the controls
+myself* and *I draw nothing around this iframe*. Both default to BD's own
+behaviour, so a module that ignores the message still works everywhere — but
+this page sends `hostChrome: false`, because BD reserves layout for furniture
+that only BD stamps in, and a standalone that kept the reserve would be giving
+away picture for nothing.
+
 Answer `bd_script_update`, announce `bd_av_state`, and **any** ButterflyDreaming
 host can drive your module — this page, or BD itself, or a viewer on another
 device. Nothing else is required.
