@@ -41,6 +41,38 @@
            font-size: .85rem; }
   #about p { margin: 0 0 .6em; max-width: 62ch; }
   #about strong { color: var(--ink); font-weight: normal; }
+
+  /* ── Phone and narrow tablet ────────────────────────────────────────────
+     Desktop holds the page to the viewport — body is height:100% and main is
+     flex:1 — which is right for two columns side by side. Below ~620px the
+     columns WRAP, and then there is nowhere for the second one to go: it
+     overflowed, the buttons landed on top of the explanation, and the
+     explanation's first lines went under the script box.
+
+     So on a narrow screen the page stops being a fixed frame and becomes a
+     DOCUMENT that scrolls: module, script, buttons, explanation, in that order.
+     The breakpoint is 720px rather than the ~620 where wrapping starts, so a
+     portrait tablet gets the scrolling layout too rather than a cramped
+     side-by-side one.
+
+     The script box also halves, as asked — but the overlap was the frame, not
+     the box, so both changes are here. */
+  @media (max-width: 720px) {
+    html, body { height: auto; }
+    body { min-height: 100%; }
+    main { display: block; }
+
+    /* The module is square and sizes itself to its iframe, so the iframe needs
+       a definite height here — a flex row was giving it one before. Capped so
+       it cannot eat a tall phone's whole screen. */
+    #stage { min-height: 0; height: min(78vw, 360px); }
+    #stage iframe { width: 100%; height: 100%; }
+
+    #side { border-left: 0; border-top: 1px solid #2a2a32; min-height: 0; }
+    /* Half the desktop box. Enough to read a stanza of directives, and it
+       scrolls for the rest. */
+    #script { flex: none; min-height: 0; height: 30vh; max-height: 220px; }
+  }
 </style>
 </head>
 <body>
